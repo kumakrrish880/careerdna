@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student   Student?
+  mentor    Mentor?
+  counselor Counselor?
+}
+
+enum Role {
+  STUDENT
+  MENTOR
+  COUNSELOR
+  ADMIN
+}
+
+model Student {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id])
+
+  class             String?
+  stream            String?
+  city              String?
+
+  assessmentAnswers Json?
+  voiceTranscript   String?
+
+  careerDnaId       String?
+  careerMatches     Json?
+
+  progress          Float    @default(0)
+  lastCheckin       DateTime @default(now())
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  badges            Badge[]
+  recommendations   Recommendation[]
+}
+
+model Mentor {
+  id         String  @id @default(cuid())
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id])
+
+  title      String
+  company    String?
+  expertise  Json
+  rating     Float   @default(0)
+  isVerified Boolean @default(false)
+
+  createdAt  DateTime @default(now())
+}
+
+model Counselor {
+  id             String  @id @default(cuid())
+  userId         String  @unique
+  user           User    @relation(fields: [userId], references: [id])
+
+  organization   String?
+  studentsLimit  Int     @default(200)
+
+  createdAt      DateTime @default(now())
+}
+
+model Badge {
+  id           String   @id @default(cuid())
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
+
+  name         String
+  description  String
+  imageUrl     String?
+
+  blockchainTx String?
+  ipfsHash     String?
+
+  earnedAt     DateTime @default(now())
+}
+
+model Recommendation {
+  id        String   @id @default(cuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+
+  careers   Json
+  courses   Json
+  report    String?
+
+  createdAt DateTime @default(now())
+}

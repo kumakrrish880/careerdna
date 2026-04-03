@@ -1,0 +1,10 @@
+{
+  "/page": "app/page.js",
+  "/(auth)/sign-up/[[...sign-up]]/page": "app/(auth)/sign-up/[[...sign-up]]/page.js",
+  "/(dashboard)/student/page": "app/(dashboard)/student/page.js",
+  "/(dashboard)/student/assessment/page": "app/(dashboard)/student/assessment/page.js",
+  "/(dashboard)/student/passport/page": "app/(dashboard)/student/passport/page.js",
+  "/(dashboard)/student/recommendations/page": "app/(dashboard)/student/recommendations/page.js",
+  "/(dashboard)/student/simulations/[careerId]/page": "app/(dashboard)/student/simulations/[careerId]/page.js",
+  "/(dashboard)/student/market/page": "app/(dashboard)/student/market/page.js"
+}
