@@ -73,6 +73,9 @@ REDIS_TOKEN=xxxxx
 NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_xxxxx
 
 
+🔒 Privacy Note: The actual API keys are not publicly shared for security reasons. Placeholders (xxxxx) are shown above. Authorized evaluators can request the complete .env.local file directly from the project maintainer.
+
+
 
 
 
